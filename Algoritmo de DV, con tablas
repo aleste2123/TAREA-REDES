@@ -1,4 +1,6 @@
-print("Hola, bienvenido a Tablas de enrutamiento, por favor ingrese los siguientes datos para los siguientes routers \n")
+print(
+  "Hola, bienvenido a Tablas de enrutamiento, por favor ingrese los siguientes datos para los siguientes routers \n"
+)
 
 peso_inicial_x = int(input("Ingrese el peso inicial x a y:   "))
 peso_inicial_y = int(input("Ingrese el peso inicial y a z:   "))
@@ -10,72 +12,181 @@ diccionario = {"x": ["y", peso_x], "y": ["z", peso_y], "z": ["x", peso_z]}
 diccionario_2 = {"x": ["z", peso_z], "y": ["x", peso_x], "z": ["y", peso_y]}
 posicion = {"x": 1, "y": 2, "z": 3}
 matrix = [["", "x", "y", "z"], ["x", 0, 0, 0], ["y", 0, 0, 0], ["z", 0, 0, 0]]
+matrix_x = [["", "x", "y", "z"], ["x", 0, 0, 0], ["y", 0, 0, 0], ["z", 0, 0, 0]]
+matrix_y = [["", "x", "y", "z"], ["x", 0, 0, 0], ["y", 0, 0, 0], ["z", 0, 0, 0]]
+matrix_z = [["", "x", "y", "z"], ["x", 0, 0, 0], ["y", 0, 0, 0], ["z", 0, 0, 0]]
 variables = ["x", "y", "z"]
 peso_anterior = []
 pesos = [peso_x, peso_y, peso_z]
 continuar = 1
+cambiar = 0
 
-def grafica(matrix):
-  print("Tabla de enrutamiento son las siguientes:   ")
-  for fila in matrix:
+def imprimir():
+      print("Seleccione de que trayectoria quiere cambiar el pero")
+      print("1. x - y")
+      print("2. y - z")
+      print("3. z - x")
+
+def imprimir_nodos(mat_x,mat_y,mat_z ):
+      print("nodo x")
+      grafica(mat_x)
+      print("nodo y")
+      grafica(mat_y)
+      print("nodo z")
+      grafica(mat_z)
+
+def grafica(matrix_parameter):
+  for fila in matrix_parameter:
     for valor in fila:
       print("\t", valor, end=" ")
     print()
 
+def comparador_de_tabla(matrix):
+    for i in range(1, 4):
+      for every in variables:
+        hold = 1
+        destino_int = "no esta"
+        destino_int_2 = "no esta"
+        contador = 0
+        hold_2 = 1
+        contador_2 = 0
+        if matrix[i][0] == every:
+          matrix[i][posicion[every]] = 0
+        else:
+          while hold == 1:
+            if destino_int == "no esta":
+              valor_comienzo = diccionario[matrix[i][0]]
+            else:
+              valor_comienzo = diccionario[destino_int]
+
+            if every == valor_comienzo[0]:
+              contador += valor_comienzo[1]
+              matrix[i][posicion[every]] = contador
+              hold = 0
+            else:
+              contador += valor_comienzo[1]
+              destino_int = valor_comienzo[0]
+              hold = 1
+
+          while hold_2 == 1:
+
+            if destino_int_2 == "no esta":
+              valor_comienzo = diccionario_2[matrix[i][0]]
+            else:
+              valor_comienzo = diccionario_2[destino_int_2]
+            if every == valor_comienzo[0]:
+              contador_2 += valor_comienzo[1]
+              if contador_2 < matrix[i][posicion[every]]:
+                matrix[i][posicion[every]] = contador_2
+              hold_2 = 0
+            else:
+              contador_2 += valor_comienzo[1]
+              destino_int_2 = valor_comienzo[0]
+              hold_2 = 1
+
 while continuar == 1:
 
-  
-  peso_anterior = [peso_x, peso_y, peso_z]
-  for i in range(1, 4):
-    for every in variables:
-      hold = 1
-      destino_int = "no esta"
-      destino_int_2 = "no esta"
-      contador = 0
-      hold_2 = 1
-      contador_2 = 0
-      if matrix[i][0] == every:
-        matrix[i][posicion[every]] = 0
-      else:
-        while hold == 1:
-          if destino_int == "no esta":
-            valor_comienzo = diccionario[matrix[i][0]]
-          else:
-            valor_comienzo = diccionario[destino_int]
-            
-          if every == valor_comienzo[0]:
-            contador += valor_comienzo[1]
-            matrix[i][posicion[every]] = contador
-            hold = 0
-          else:
-            contador += valor_comienzo[1]
-            destino_int = valor_comienzo[0]
-            hold = 1
-              
-        while hold_2 == 1:
-          
-          if destino_int_2 == "no esta":
-            valor_comienzo = diccionario_2[matrix[i][0]]
-          else:
-            valor_comienzo = diccionario_2[destino_int_2]
-          if every == valor_comienzo[0]:
-            contador_2 += valor_comienzo[1]
-            if contador_2 < matrix[i][posicion[every]]:
-              matrix[i][posicion[every]] = contador_2
+  if cambiar == 0:
+    peso_anterior = [peso_x, peso_y, peso_z]
+    for i in range(1, 4):
+      for every in variables:
+        hold = 1
+        destino_int = "no esta"
+        destino_int_2 = "no esta"
+        contador = 0
+        hold_2 = 1
+        contador_2 = 0
+        if matrix[i][0] == every:
+          matrix[i][posicion[every]] = 0
+        else:
+          while hold == 1:
+            if destino_int == "no esta":
+              valor_comienzo = diccionario[matrix[i][0]]
+            else:
+              valor_comienzo = diccionario[destino_int]
 
-            hold_2 = 0
-          else:
-            contador_2 += valor_comienzo[1]
-            destino_int_2 = valor_comienzo[0]
-            hold_2 = 1
-            
+            if every == valor_comienzo[0]:
+              contador += valor_comienzo[1]
+              matrix[i][posicion[every]] = contador
+              matrix_x[i][posicion[every]] = contador
+              matrix_y[i][posicion[every]] = contador
+              matrix_z[i][posicion[every]] = contador
+              hold = 0
+            else:
+              contador += valor_comienzo[1]
+              destino_int = valor_comienzo[0]
+              hold = 1
 
-  grafica(matrix)
+          while hold_2 == 1:
+
+            if destino_int_2 == "no esta":
+              valor_comienzo = diccionario_2[matrix[i][0]]
+            else:
+              valor_comienzo = diccionario_2[destino_int_2]
+            if every == valor_comienzo[0]:
+              contador_2 += valor_comienzo[1]
+              if contador_2 < matrix[i][posicion[every]]:
+                matrix[i][posicion[every]] = contador_2
+                matrix_x[i][posicion[every]] = contador_2
+                matrix_y[i][posicion[every]] = contador_2
+                matrix_z[i][posicion[every]] = contador_2
+              hold_2 = 0
+            else:
+              contador_2 += valor_comienzo[1]
+              destino_int_2 = valor_comienzo[0]
+              hold_2 = 1
+    print("Tabla de enrutamiento son las siguientes:   ")
+    grafica(matrix)
+
+  cambiar = int(input("Quieres cambiar los pesos:    "))
+  if cambiar == 1:
+    imprimir()
+    cambio_de_peso = int(input()) 
+    if cambio_de_peso == 1:
+      matrix[1][2] = peso_x
+      matrix_y[2][1] = peso_x
+      matrix_actualizada = comparador_de_tabla(matrix)
+      peso_x = input("Ingrese el nuevo peso x a y:   ")
+      matrix_x[1][2] = peso_x
+      matrix_y[2][1] = peso_x
+      imprimir_nodos(matrix_x,matrix_y,matrix_z)
+      print("Tabla actualizada")
+      grafica(matrix_actualizada)
       
+      
+      
+    elif cambio_de_peso == 2:
+      matrix[3][4] = peso_y
+      matrix[4][3] = peso_y
+      matrix_actualizada = comparador_de_tabla(matrix)
+      peso_y = input("Ingrese el nuevo peso y a z:   ")
+      matrix_y[3][4] = peso_y
+      matrix_z[4][3] = peso_y
+      imprimir_nodos(matrix_x,matrix_y,matrix_z)
+      print("Tabla actualizada")
+      grafica(matrix_actualizada)
+      
+    elif cambio_de_peso == 3:
+      matrix[1][4] = peso_z
+      matrix[4][1] = peso_z
+      matrix_actualizada = comparador_de_tabla(matrix)
+      peso_z = input("Ingrese el nuevo peso z a x:   ")
+      matrix_x[1][4] = peso_z
+      matrix_z[4][1] = peso_z
+      imprimir_nodos(matrix_x,matrix_y,matrix_z)
+      print("Tabla actualizada")
+      grafica(matrix_actualizada)
+      
+    else:
+      continuar = 0
+            
+  else: 
+    continuar = 0
+    
 
-  continuar = int(input("Quieres cambiar los pesos:    "))
-  if continuar == 1:
-    peso_x = input("Ingrese el nuevo peso x a y:   ")
-    peso_y = input("Ingrese el nuevo peso y a z:   ")
-    peso_z = input("Ingrese el nuevo peso z a x:   ")
-    pesos = [peso_x, peso_y, peso_z]
+      
+        
+        
+  
+  
+  
