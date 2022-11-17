@@ -41,9 +41,10 @@ def grafica(matrix_parameter):
       print("\t", valor, end=" ")
     print()
 
-def comparador_de_tabla(matrix):
+def comparador_de_tabla():
     for i in range(1, 4):
       for every in variables:
+        print("ok")
         hold = 1
         destino_int = "no esta"
         destino_int_2 = "no esta"
@@ -143,39 +144,39 @@ while continuar == 1:
     imprimir()
     cambio_de_peso = int(input()) 
     if cambio_de_peso == 1:
-      matrix[1][2] = peso_x
-      matrix_y[2][1] = peso_x
-      matrix_actualizada = comparador_de_tabla(matrix)
-      peso_x = input("Ingrese el nuevo peso x a y:   ")
+      peso_x = int(input("Ingrese el nuevo peso x a y:   "))
       matrix_x[1][2] = peso_x
       matrix_y[2][1] = peso_x
+      diccionario["x"][1] = peso_x
+      diccionario_2["y"][1] = peso_x
+      comparador_de_tabla()
       imprimir_nodos(matrix_x,matrix_y,matrix_z)
       print("Tabla actualizada")
-      grafica(matrix_actualizada)
+      grafica(matrix)
       
       
       
     elif cambio_de_peso == 2:
-      matrix[3][4] = peso_y
-      matrix[4][3] = peso_y
-      matrix_actualizada = comparador_de_tabla(matrix)
-      peso_y = input("Ingrese el nuevo peso y a z:   ")
-      matrix_y[3][4] = peso_y
-      matrix_z[4][3] = peso_y
+      peso_y = int(input("Ingrese el nuevo peso y a z:   "))
+      matrix_y[2][3] = peso_y
+      matrix_z[3][2] = peso_y
+      diccionario["y"][1] = peso_y
+      diccionario_2["z"][1] = peso_y
+      comparador_de_tabla()
       imprimir_nodos(matrix_x,matrix_y,matrix_z)
       print("Tabla actualizada")
-      grafica(matrix_actualizada)
+      grafica(matrix)
       
     elif cambio_de_peso == 3:
-      matrix[1][4] = peso_z
-      matrix[4][1] = peso_z
-      matrix_actualizada = comparador_de_tabla(matrix)
-      peso_z = input("Ingrese el nuevo peso z a x:   ")
-      matrix_x[1][4] = peso_z
-      matrix_z[4][1] = peso_z
+      peso_z = int(input("Ingrese el nuevo peso z a x:   "))
+      matrix_x[1][3] = peso_z
+      matrix_z[3][1] = peso_z
+      diccionario["z"][1] = peso_z
+      diccionario_2["x"][1] = peso_z
+      comparador_de_tabla()
       imprimir_nodos(matrix_x,matrix_y,matrix_z)
       print("Tabla actualizada")
-      grafica(matrix_actualizada)
+      grafica(matrix)
       
     else:
       continuar = 0
